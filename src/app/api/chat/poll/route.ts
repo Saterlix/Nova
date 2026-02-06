@@ -5,6 +5,24 @@ const EMPLOYEE_ID = process.env.TELEGRAM_EMPLOYEE_ID;
 
 export const dynamic = 'force-dynamic';
 
+async function handleCallback(callbackQuery: any) {
+    if (!BOT_TOKEN) return;
+    try {
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/answerCallbackQuery`;
+        await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                callback_query_id: callbackQuery.id,
+                text: "⚠️ Чтобы ответить:\n1. Смахните сообщение ВЛЕВО (Reply)\n2. Напишите текст",
+                show_alert: true
+            })
+        });
+    } catch (e) {
+        console.error("Failed to answer callback", e);
+    }
+}
+
 export async function GET(req: Request) {
     if (!BOT_TOKEN || !EMPLOYEE_ID) {
         return NextResponse.json({ error: 'Chat configuration missing server-side' }, { status: 500 });
@@ -17,7 +35,7 @@ export async function GET(req: Request) {
         return NextResponse.json({ updates: [] });
     }
 
-    const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?limit=50`;
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?limit=50&allowed_updates=["message","callback_query"]`;
 
     try {
         const response = await fetch(url, { cache: 'no-store' });
@@ -27,14 +45,22 @@ export async function GET(req: Request) {
             return NextResponse.json({ updates: [] });
         }
 
+        // Process Callbacks purely for UI feedback (Admin clicked "Reply" button)
+        const callbacks = data.result.filter((u: any) => u.callback_query);
+        for (const cb of callbacks) {
+            await handleCallback(cb.callback_query);
+        }
+
+        // Filter Messages for the specific User Session
         const updates = data.result
             .filter((u: any) => {
+                if (!u.message) return false;
+
                 // Check if message is from Employee
-                const isFromEmployee = u.message && String(u.message.chat.id) === String(EMPLOYEE_ID);
+                const isFromEmployee = String(u.message.chat.id) === String(EMPLOYEE_ID);
                 if (!isFromEmployee) return false;
 
                 // CRITICAL: Check if it replies to THIS session
-                // The Employee must reply to the message that has #id:sessionId
                 const replyText = u.message.reply_to_message?.text || '';
                 return replyText.includes(`#id:${sessionId}`);
             })

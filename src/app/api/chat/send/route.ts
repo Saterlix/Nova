@@ -14,10 +14,8 @@ export async function POST(req: Request) {
 
         const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
-        // Format: #id:12345
-        // Message...
-        // Instruction Footer
-        const messageToSend = `#id:${sessionId}\n\n${text}\n\n<i>Reply to this message to answer ↩️</i>`;
+        // Message with ID and Instructions
+        const messageToSend = `#id:${sessionId}\n\n${text}`;
 
         const response = await fetch(url, {
             method: 'POST',
@@ -25,7 +23,14 @@ export async function POST(req: Request) {
             body: JSON.stringify({
                 chat_id: EMPLOYEE_ID,
                 text: messageToSend,
-                parse_mode: 'HTML'
+                parse_mode: 'HTML',
+                reply_markup: {
+                    inline_keyboard: [
+                        [
+                            { text: "↩️ Ответить (Reply)", callback_data: "reply_help" }
+                        ]
+                    ]
+                }
             })
         });
 
