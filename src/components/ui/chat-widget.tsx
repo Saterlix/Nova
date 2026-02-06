@@ -9,23 +9,26 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { ChatWindow } from "./chat-window";
+// import { ChatWindow } from "./chat-window"; // Disabled by user request
+
 
 export function ChatWidget() {
     const telegramLink = "https://t.me/Nova_BusinessBOT";
     const phoneNumber = "+998507037750";
 
     const [isOpen, setIsOpen] = useState(false);
-    const [isChatOpen, setIsChatOpen] = useState(false);
+    // const [isChatOpen, setIsChatOpen] = useState(false);
+
 
     const toggleOpen = () => setIsOpen(!isOpen);
 
     return (
         <>
             <AnimatePresence>
-                {isChatOpen && (
+                {/* {isChatOpen && (
                     <ChatWindow onClose={() => setIsChatOpen(false)} />
-                )}
+                )} */}
+
             </AnimatePresence>
 
             {/* Main Toggle Button */}
@@ -48,7 +51,7 @@ export function ChatWidget() {
                     </PopoverTrigger>
 
                     <PopoverContent side="top" align="end" className="w-56 p-2 flex flex-col gap-2 bg-background/95 backdrop-blur-sm shadow-2xl border-border mb-2">
-                        <Button
+                        {/* <Button
                             variant="ghost"
                             className="justify-start gap-3 w-full"
                             onClick={() => {
@@ -58,7 +61,8 @@ export function ChatWidget() {
                         >
                             <MessagesSquare className="w-5 h-5 text-primary" />
                             <span>Онлайн чат</span>
-                        </Button>
+                        </Button> */}
+
 
                         <a href={telegramLink} target="_blank" rel="noopener noreferrer" className="w-full">
                             <Button variant="ghost" className="justify-start gap-3 w-full">
