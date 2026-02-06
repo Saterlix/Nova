@@ -10,27 +10,17 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
+
 export function Navbar() {
     const { t, language, setLanguage } = useLanguage();
     const { theme, setTheme } = useTheme();
     const [scrolled, setScrolled] = useState(false);
-    const [transitioning, setTransitioning] = useState<{ theme: "light" | "dark"; x: number; y: number } | null>(null);
 
-    const toggleTheme = (e: React.MouseEvent) => {
-        const { clientX, clientY } = e;
-        const newTheme = theme === "dark" ? "light" : "dark";
-        setTransitioning({ theme: newTheme, x: clientX, y: clientY });
 
-        // Wait for animation to cover screen before changing actual theme
-        // Faster animation timing
-        // Slower animation: 800ms
-        setTimeout(() => {
-            setTheme(newTheme);
-            // Hide overlay effectively instantly after switch
-            setTimeout(() => setTransitioning(null), 50);
-        }, 800);
-
+    const toggleTheme = () => {
+        setTheme(theme === "dark" ? "light" : "dark");
     };
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -127,8 +117,9 @@ export function Navbar() {
                         variant="ghost"
                         size="icon"
                         onClick={toggleTheme}
-                        disabled={!!transitioning}
+                        onClick={toggleTheme}
                         className="rounded-full w-9 h-9 mr-2 relative z-[110]"
+
                     >
                         <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                         <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -149,8 +140,9 @@ export function Navbar() {
                         variant="ghost"
                         size="icon"
                         onClick={toggleTheme}
-                        disabled={!!transitioning}
+                        onClick={toggleTheme}
                         className="rounded-full w-9 h-9"
+
                     >
                         <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                         <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -216,28 +208,9 @@ export function Navbar() {
                         </SheetContent>
                     </Sheet>
                 </div>
-                {/* Theme Transition Overlay */}
                 <AnimatePresence>
-                    {transitioning && (
-                        <motion.div
-                            initial={{ scale: 0, opacity: 1 }}
-                            animate={{ scale: 150, opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.8, ease: "easeInOut" }}
-
-                            className={cn(
-                                "fixed rounded-full pointer-events-none z-[100]",
-                                transitioning.theme === "dark" ? "bg-[#0a0a0a]" : "bg-white"
-                            )}
-                            style={{
-                                top: transitioning.y - 20,
-                                left: transitioning.x - 20,
-                                width: 40,
-                                height: 40,
-                            }}
-                        />
-                    )}
                 </AnimatePresence>
+
             </div>
         </header>
     );

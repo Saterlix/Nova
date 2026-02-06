@@ -34,8 +34,12 @@ export async function submitLead(prevState: any, formData: FormData) {
     const chatId = process.env.TELEGRAM_CHAT_ID;
 
     if (token && chatId) {
-        console.log("Sending to Telegram:", { token: token.slice(0, 5) + "...", chatId }); // LOGGING
-        const text = `🚀 *New Lead (NOVA)*\n\n👤 *Name:* ${name}\n📱 *Phone:* ${phone}\n🏢 *Company:* ${company}\n❓ *Type:* ${type}`;
+        // Escape HTML special chars to prevent breakage
+        const safeName = name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const safeCompany = company.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+        // Use HTML parse mode which is more robust for user input than Markdown
+        const text = `🚀 <b>New Lead (NOVA)</b>\n\n👤 <b>Name:</b> ${safeName}\n📱 <b>Phone:</b> ${phone}\n🏢 <b>Company:</b> ${safeCompany}\n❓ <b>Type:</b> ${type}`;
 
         try {
             await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -44,7 +48,7 @@ export async function submitLead(prevState: any, formData: FormData) {
                 body: JSON.stringify({
                     chat_id: chatId,
                     text: text,
-                    parse_mode: "Markdown",
+                    parse_mode: "HTML",
                 }),
             });
         } catch (error) {
@@ -53,7 +57,6 @@ export async function submitLead(prevState: any, formData: FormData) {
         }
     } else {
         console.log("Missing Telegram Config:", { token: !!token, chatId });
-        console.log("Mock Telegram Send:", data);
     }
 
     return {
