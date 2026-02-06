@@ -63,9 +63,9 @@ export function Navbar() {
                 {/* Logo */}
                 <div
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="text-2xl font-bold tracking-tighter text-foreground cursor-pointer"
+                    className="cursor-pointer"
                 >
-                    NOVA
+                    <img src="/logo.svg" alt="NOVA" className="h-20 w-auto" />
                 </div>
 
                 {/* Desktop Nav */}
