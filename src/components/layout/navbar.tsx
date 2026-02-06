@@ -65,7 +65,11 @@ export function Navbar() {
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="cursor-pointer"
                 >
-                    <img src="/logo.svg" alt="NOVA" className="h-20 w-auto" />
+                    <img
+                        src="/logo.svg"
+                        alt="NOVA"
+                        className="h-20 w-auto dark:filter-none invert hue-rotate-180 transition-all duration-300"
+                    />
                 </div>
 
                 {/* Desktop Nav */}
