@@ -23,11 +23,13 @@ export function Navbar() {
 
         // Wait for animation to cover screen before changing actual theme
         // Faster animation timing
+        // Slower animation: 800ms
         setTimeout(() => {
             setTheme(newTheme);
-            // Hide overlay almost immediately after theme change to reveal new theme
+            // Hide overlay effectively instantly after switch
             setTimeout(() => setTransitioning(null), 50);
-        }, 250); // Matches approx expansion time
+        }, 800);
+
     };
 
     useEffect(() => {
@@ -221,7 +223,8 @@ export function Navbar() {
                             initial={{ scale: 0, opacity: 1 }}
                             animate={{ scale: 150, opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3, ease: "easeIn" }} // Faster 0.3s
+                            transition={{ duration: 0.8, ease: "easeInOut" }}
+
                             className={cn(
                                 "fixed rounded-full pointer-events-none z-[100]",
                                 transitioning.theme === "dark" ? "bg-[#0a0a0a]" : "bg-white"
