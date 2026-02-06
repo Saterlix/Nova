@@ -9,23 +9,26 @@ export async function POST(req: Request) {
     }
 
     try {
-        const { text } = await req.json();
+        const { text, sessionId } = await req.json();
         if (!text) return NextResponse.json({ error: 'Message text is required' }, { status: 400 });
 
         const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+        // Format: #id:12345
+        // Message...
+        const messageToSend = `#id:${sessionId}\n${text}`;
+
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 chat_id: EMPLOYEE_ID,
-                text: `🌐 Site Visitor:\n${text}`,
+                text: messageToSend,
                 parse_mode: 'HTML'
             })
         });
 
         if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Telegram Send Error:', errorText);
             return NextResponse.json({ error: 'Failed to send to Telegram' }, { status: response.status });
         }
 

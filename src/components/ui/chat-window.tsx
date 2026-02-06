@@ -13,42 +13,54 @@ interface Message {
     from: 'user' | 'support';
 }
 
+function generateSessionId() {
+    return 'sess_' + Math.random().toString(36).substr(2, 9);
+}
+
 export function ChatWindow({ onClose }: { onClose: () => void }) {
     const [messages, setMessages] = useState<Message[]>([
         { id: 0, text: "Здравствуйте! Чем можем помочь?", from: 'support' }
     ]);
     const [inputValue, setInputValue] = useState("");
     const [loading, setLoading] = useState(false);
+    const [sessionId, setSessionId] = useState<string>("");
+
     const scrollRef = useRef<HTMLDivElement>(null);
     const lastMessageIdRef = useRef<number>(0);
 
-    // Auto-scroll to bottom
+    // Init Session
+    useEffect(() => {
+        let sid = localStorage.getItem('nova_chat_session_id');
+        if (!sid) {
+            sid = generateSessionId();
+            localStorage.setItem('nova_chat_session_id', sid);
+        }
+        setSessionId(sid);
+    }, []);
+
+    // Auto-scroll
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollIntoView({ behavior: "smooth" });
         }
     }, [messages]);
 
-    // Polling for new messages
+    // Polling
     useEffect(() => {
+        if (!sessionId) return;
+
         const interval = setInterval(async () => {
             try {
-                const res = await fetch('/api/chat/poll');
+                const res = await fetch(`/api/chat/poll?sessionId=${sessionId}`);
                 const data = await res.json();
 
                 if (data.updates && Array.isArray(data.updates)) {
                     const newMessages = data.updates.filter((msg: Message) => {
-                        // Very basic dedup: only take messages newer than we've 'seen' 
-                        // Note: In a real app we'd track IDs more robustly.
-                        // For this MVP, we just check if it's already in our local state to avoid flickering
-                        // But since we don't persist 'user' messages in backend for this MVP poll, 
-                        // we mainly check if we already have this support msg ID.
                         return !messages.some(m => m.id === msg.id) && msg.id > lastMessageIdRef.current;
                     });
 
                     if (newMessages.length > 0) {
                         setMessages(prev => {
-                            // Deduplicate against current state again to be safe
                             const uniqueNew = newMessages.filter((nm: Message) => !prev.some(pm => pm.id === nm.id));
                             if (uniqueNew.length === 0) return prev;
 
@@ -62,18 +74,17 @@ export function ChatWindow({ onClose }: { onClose: () => void }) {
             } catch (e) {
                 console.error("Polling error", e);
             }
-        }, 3000); // Poll every 3 seconds
+        }, 3000);
 
         return () => clearInterval(interval);
-    }, [messages]);
+    }, [messages, sessionId]);
 
     const handleSend = async () => {
-        if (!inputValue.trim()) return;
+        if (!inputValue.trim() || !sessionId) return;
 
         const text = inputValue;
         setInputValue("");
 
-        // Optimistic UI update
         const tempId = Date.now();
         setMessages(prev => [...prev, { id: tempId, text, from: 'user' }]);
         setLoading(true);
@@ -82,10 +93,9 @@ export function ChatWindow({ onClose }: { onClose: () => void }) {
             const res = await fetch('/api/chat/send', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text })
+                body: JSON.stringify({ text, sessionId })
             });
             if (!res.ok) {
-                // Handle error (maybe mark message as failed)
                 console.error("Failed to send");
             }
         } catch (e) {
@@ -102,7 +112,6 @@ export function ChatWindow({ onClose }: { onClose: () => void }) {
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             className="fixed bottom-24 right-4 z-50 w-[90vw] md:w-[350px] bg-background border border-border rounded-xl shadow-2xl flex flex-col overflow-hidden h-[500px]"
         >
-            {/* Header */}
             <div className="bg-primary p-4 flex items-center justify-between text-primary-foreground">
                 <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
@@ -113,7 +122,6 @@ export function ChatWindow({ onClose }: { onClose: () => void }) {
                 </Button>
             </div>
 
-            {/* Messages */}
             <ScrollArea className="flex-1 p-4 bg-muted/30">
                 <div className="flex flex-col gap-3">
                     {messages.map((msg) => (
@@ -131,13 +139,12 @@ export function ChatWindow({ onClose }: { onClose: () => void }) {
                 </div>
             </ScrollArea>
 
-            {/* Input */}
             <div className="p-3 border-t border-border bg-background flex gap-2">
                 <Input
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                    placeholder="Напишите сообщение..."
+                    placeholder="Ваш вопрос..."
                     className="flex-1"
                 />
                 <Button onClick={handleSend} size="icon" disabled={loading}>
