@@ -1,0 +1,128 @@
+{
+    "nav": {
+        "cta": "Ariza qoldirish",
+        "links": {
+            "services": "Xizmatlar",
+            "whyNova": "Nega NOVA",
+            "howItWorks": "Jarayon",
+            "contacts": "Aloqa"
+        }
+    },
+    "hero": {
+        "headline": "Biznesingiz o'sishiga yordam beradigan IT infratuzilmasi",
+        "subheadline": "O'zbekiston bizneslari uchun kompleks autsorsing, modernizatsiya va SLA yordami.",
+        "getAudit": "Audit olish",
+        "viewPlans": "Tariflarni ko'rish",
+        "brand": "NOVA Outsourcing",
+        "stats": {
+            "sla": "SLA 99.9%",
+            "monitoring": "24/7 Monitoring",
+            "certified": "Sertifikatlangan jamoa"
+        }
+    },
+    "services": {
+        "title": "Xizmatlar",
+        "subtitle": "Biznesingiz uchun kompleks IT yechimlar",
+        "items": [
+            {
+                "title": "Server ma'muriyati",
+                "desc": "Linux/Windows serverlarini sozlash, qo'llab-quvvatlash va optimallashtirish."
+            },
+            {
+                "title": "Kiberxavfsizlik",
+                "desc": "Audit, pentestlar va xavfsizlik siyosatini joriy etish."
+            },
+            {
+                "title": "Tarmoq infratuzilmasi",
+                "desc": "Korporativ tarmoqlarni loyihalash va boshqarish (Cisco, MikroTik)."
+            },
+            {
+                "title": "DevOps va Bulutlar",
+                "desc": "CI/CD payplaynlar, Docker/Kubernetes, AWS/Azure boshqaruvi."
+            },
+            {
+                "title": "IT-quvvatlash (Helpdesk)",
+                "desc": "Xodimlarni masofaviy va joyida qo'llab-quvvatlash (L1/L2/L3)."
+            },
+            {
+                "title": "Dasturiy ta'minot",
+                "desc": "Biznesni avtomatlashtirish uchun veb va mobil ilovalar."
+            }
+        ]
+    },
+    "howItWorks": {
+        "title": "Ishlash tartibi",
+        "steps": [
+            {
+                "title": "Ariza",
+                "desc": "Saytda ariza qoldirasiz yoki qo'ng'iroq qilasiz."
+            },
+            {
+                "title": "Audit",
+                "desc": "Biz bepul ekspress-audit o'tkazamiz."
+            },
+            {
+                "title": "Taklif",
+                "desc": "Ish rejasi va tijorat taklifini tayyorlaymiz."
+            },
+            {
+                "title": "Boshlash",
+                "desc": "Shartnoma imzolaymiz va ishni boshlaymiz."
+            }
+        ]
+    },
+    "whyNova": {
+        "header": "Nega NOVA?",
+        "subheader": "Biz infratuzilmani barqaror qilamiz — aniq reja, joriy etish va SLA bo'yicha qo'llab-quvvatlash bilan.",
+        "cards": [
+            {
+                "title": "Kompleks yondashuv",
+                "body": "Audit → Yo'l xaritasi → Modernizatsiya → SLA yordami. Hech qanday tarqoq pudratchilar va «yong'inlar» yo'q."
+            },
+            {
+                "title": "Miqyosga mos",
+                "body": "Andozalarni taklif qilmaymiz. O'sish, yuklama, byudjet va biznes maqsadini hisobga olamiz: kengaytirish yoki optimallashtirish."
+            },
+            {
+                "title": "Natija aniq",
+                "body": "Xatarlar reyestri, tezkor g'alabalar, 12–24 oylik reja, byudjet. Joriy etilgandan so'ng — hujjatlar va sifat nazorati."
+            },
+            {
+                "title": "SLA: P1 tezkor javob",
+                "body": "Service Desk, monitoring, patchlar, zaxira nusxalash, foydalanuvchilarni boshqarish. P1 — 15 daqiqadan boshlab reaksiya."
+            },
+            {
+                "title": "2 oy bonus",
+                "body": "Loyihadan keyin tinch ishga tushirish: 2 oy infra-support + monitoring bonus sifatida (8×5, foydalanuvchilar va chiqishlarsiz)."
+            },
+            {
+                "title": "Adolatli shart",
+                "body": "To'liq audit pullik — lekin 60 kun ichida loyihani boshlasak, narxining 50% ini modernizatsiyaga o'tkazamiz."
+            }
+        ],
+        "footer": [
+            "Audit: 10–15 ish kuni",
+            "SLA: P1 reaksiya 15 daq",
+            "Bonus: 2 oy infra-support",
+            "50% audit hisobi"
+        ]
+    },
+    "contact": {
+        "title": "Ariza qoldiring",
+        "subtitle": "Biz siz bilan 15 daqiqa ichida bog'lanamiz",
+        "form": {
+            "name": "Ismingiz",
+            "phone": "Telefon raqami",
+            "company": "Kompaniya nomi",
+            "type": "Murojaat turi",
+            "types": {
+                "audit": "Infratuzilma auditi",
+                "support": "Qo'llab-quvvatlash (SLA)",
+                "project": "Loyiha ishi",
+                "other": "Boshqa"
+            },
+            "submit": "Yuborish",
+            "success": "Ariza qabul qilindi! Tez orada bog'lanamiz."
+        }
+    }
+}
