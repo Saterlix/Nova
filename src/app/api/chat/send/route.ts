@@ -16,7 +16,8 @@ export async function POST(req: Request) {
 
         // Format: #id:12345
         // Message...
-        const messageToSend = `#id:${sessionId}\n${text}`;
+        // Instruction Footer
+        const messageToSend = `#id:${sessionId}\n\n${text}\n\n<i>Reply to this message to answer ↩️</i>`;
 
         const response = await fetch(url, {
             method: 'POST',
