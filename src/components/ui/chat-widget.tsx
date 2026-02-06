@@ -63,6 +63,19 @@ export function ChatWidget() {
                             <span>Онлайн чат</span>
                         </Button> */}
 
+                        <Button
+                            variant="ghost"
+                            className="justify-start gap-3 w-full"
+                            onClick={() => {
+                                const element = document.getElementById("contact-form");
+                                if (element) element.scrollIntoView({ behavior: "smooth" });
+                                setIsOpen(false);
+                            }}
+                        >
+                            <MessagesSquare className="w-5 h-5 text-primary" />
+                            <span>Оставить заявку</span>
+                        </Button>
+
 
                         <a href={telegramLink} target="_blank" rel="noopener noreferrer" className="w-full">
                             <Button variant="ghost" className="justify-start gap-3 w-full">
