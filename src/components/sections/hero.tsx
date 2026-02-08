@@ -5,6 +5,7 @@ import { useLanguage } from "@/lib/i18n-context";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { PricingModal } from "@/components/ui/pricing-modal";
 
 export function Hero() {
     const { t } = useLanguage();
@@ -15,7 +16,6 @@ export function Hero() {
             element.scrollIntoView({ behavior: "smooth" });
         }
     };
-
 
     return (
         <section id="hero" className="relative pt-24 pb-12 lg:pt-48 lg:pb-32 overflow-hidden bg-background">
@@ -57,15 +57,17 @@ export function Hero() {
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
 
-                        <Button
-                            onClick={() => scrollToSection("pricing")}
-                            variant="outline"
-                            size="lg"
-                            className="h-12 px-8 text-base rounded-full border-primary/20 hover:bg-primary/5 transition-transform hover:scale-105"
-                        >
-                            {t.hero.viewPlans}
-                        </Button>
-
+                        <PricingModal
+                            trigger={
+                                <Button
+                                    variant="outline"
+                                    size="lg"
+                                    className="h-12 px-8 text-base rounded-full border-primary/20 hover:bg-primary/5 transition-transform hover:scale-105"
+                                >
+                                    {t.hero.viewPlans}
+                                </Button>
+                            }
+                        />
                     </div>
 
                     <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-muted-foreground">
