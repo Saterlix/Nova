@@ -9,6 +9,14 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 export function Hero() {
     const { t } = useLanguage();
 
+    const scrollToSection = (id: string) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
+
     return (
         <section id="hero" className="relative pt-24 pb-12 lg:pt-48 lg:pb-32 overflow-hidden bg-background">
             {/* Background Decor */}
@@ -40,13 +48,24 @@ export function Hero() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Button size="lg" className="h-12 px-8 text-base rounded-full shadow-lg shadow-primary/20 transition-transform hover:scale-105">
+                        <Button
+                            onClick={() => scrollToSection("contact-form")}
+                            size="lg"
+                            className="h-12 px-8 text-base rounded-full shadow-lg shadow-primary/20 transition-transform hover:scale-105"
+                        >
                             {t.hero.getAudit}
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
-                        <Button variant="outline" size="lg" className="h-12 px-8 text-base rounded-full border-primary/20 hover:bg-primary/5 transition-transform hover:scale-105">
+
+                        <Button
+                            onClick={() => scrollToSection("pricing")}
+                            variant="outline"
+                            size="lg"
+                            className="h-12 px-8 text-base rounded-full border-primary/20 hover:bg-primary/5 transition-transform hover:scale-105"
+                        >
                             {t.hero.viewPlans}
                         </Button>
+
                     </div>
 
                     <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-muted-foreground">

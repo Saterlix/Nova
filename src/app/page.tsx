@@ -3,7 +3,9 @@ import { Hero } from "@/components/sections/hero";
 import { Services } from "@/components/sections/services";
 import { WhyNova } from "@/components/sections/why-nova";
 import { HowItWorks } from "@/components/sections/how-it-works";
+import { Pricing } from "@/components/sections/pricing";
 import { ContactForm } from "@/components/sections/contact-form";
+
 import { Footer } from "@/components/layout/footer";
 
 export default function Home() {
@@ -14,7 +16,9 @@ export default function Home() {
       <Services />
       <WhyNova />
       <HowItWorks />
+      <Pricing />
       <ContactForm />
+
       <Footer />
     </main>
   );

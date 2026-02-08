@@ -107,6 +107,36 @@
             "50% audit hisobi"
         ]
     },
+    "pricing": {
+        "title": "Tariflar",
+        "subtitle": "Yashirin to'lovlarsiz shaffof narxlar",
+        "hourly": {
+            "title": "Soatbay ish",
+            "price": "300 000 so'm",
+            "desc": "Bir martalik vazifalar, muhandis tashrifi, uskunalar sozlash."
+        },
+        "online": {
+            "title": "Onlayn yechim",
+            "price": "200 000 so'm",
+            "desc": "Masofaviy ulanish, diagnostika, dasturiy ta'minot o'rnatish."
+        },
+        "weekly": {
+            "title": "Haftalik reja",
+            "price": "1 500 000 so'm",
+            "desc": "7 kunlik to'liq qo'llab-quvvatlash. Xizmatni sinab ko'rish."
+        },
+        "monthly": {
+            "title": "Oylik reja",
+            "price": "4 500 000 so'm",
+            "desc": "Kompleks autsorsing, monitoring, SLA, tashriflar."
+        },
+        "individual": {
+            "title": "Individual",
+            "price": "Shartnoma asosida",
+            "desc": "Yirik loyihalar, modernizatsiya, nostandart vazifalar."
+        },
+        "cta": "Tanlash"
+    },
     "contact": {
         "title": "Ariza qoldiring",
         "subtitle": "Biz siz bilan 15 daqiqa ichida bog'lanamiz",
