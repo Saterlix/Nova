@@ -85,7 +85,9 @@ export function PricingModal({ trigger }: PricingModalProps) {
                         </DialogDescription>
                     </DialogHeader>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 mt-8 pb-4">
+                    {/* Optimized Grid: 1 col mobile, 2 col small tablet, 3 col tablet/laptop, 5 col desktop */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-6 mt-8 pb-4">
+
                         {plans.map((plan) => (
                             <Card
                                 key={plan.id}
