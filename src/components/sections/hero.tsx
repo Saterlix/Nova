@@ -5,7 +5,8 @@ import { useLanguage } from "@/lib/i18n-context";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { PricingModal } from "@/components/ui/pricing-modal";
+// import { PricingModal } from "@/components/ui/pricing-modal";
+
 
 export function Hero() {
     const { t } = useLanguage();
@@ -57,7 +58,7 @@ export function Hero() {
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
 
-                        <PricingModal
+                        {/* <PricingModal
                             trigger={
                                 <Button
                                     variant="outline"
@@ -67,7 +68,8 @@ export function Hero() {
                                     {t.hero.viewPlans}
                                 </Button>
                             }
-                        />
+                        /> */}
+
                     </div>
 
                     <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-muted-foreground">
