@@ -94,8 +94,8 @@ export async function POST(req: Request) {
                 return NextResponse.json({ ok: true });
             }
 
-            // 1. Handle Commands & Main Menu
-            if (text === '/start' || text === 'Главное меню' || text === '/menu') {
+            // 1. Handle Commands & Main Menu & Cancel
+            if (text === '/start' || text === 'Главное меню' || text === '/menu' || text === '🔙 Отмена' || text === 'Отмена') {
                 await sendMessage(chatId, `👋 <b>Привет, ${userFirstName}!</b>\n\nЯ бот поддержки <b>NOVA Outsourcing</b>.\nВыберите действие в меню ниже 👇`, {
                     reply_markup: {
                         keyboard: [
