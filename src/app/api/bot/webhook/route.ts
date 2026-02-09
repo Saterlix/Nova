@@ -80,16 +80,20 @@ export async function POST(req: Request) {
             // --- DEBUG TOOL: /testgroup command ---
             // Tries to send a message to the Configured Group ID
             if (text === '/testgroup') {
+                const chatIdStr = GROUP_CHAT_ID ? GROUP_CHAT_ID.toString() : "NR";
+                const tokenStr = BOT_TOKEN ? BOT_TOKEN.substring(0, 10) + "..." : "NR";
+
                 if (!GROUP_CHAT_ID) {
-                    await sendMessage(chatId, "❌ GROUP_CHAT_ID is not set in env.");
+                    await sendMessage(chatId, `❌ <b>Configuration Error</b>\nGROUP_CHAT_ID is missing in Vercel Env.\n\nServer sees: ${chatIdStr}`);
                     return NextResponse.json({ ok: true });
                 }
 
-                const res = await sendMessage(GROUP_CHAT_ID, "🔔 Test message from Bot.");
+                const res = await sendMessage(GROUP_CHAT_ID, `🔔 <b>Test Notification</b>\n\n✅ If you see this in the group, the bot works!\n🆔 Bot: ${tokenStr}\n📂 Chat: ${chatIdStr}`);
+
                 if (res.ok) {
-                    await sendMessage(chatId, `✅ <b>Success!</b> Message sent to group <code>${GROUP_CHAT_ID}</code>.`);
+                    await sendMessage(chatId, `✅ <b>Success!</b>\n\nMessage sent to group <code>${chatIdStr}</code>.\nBot Token Prefix: <code>${tokenStr}</code>`);
                 } else {
-                    await sendMessage(chatId, `❌ <b>Failed!</b>\nError: ${JSON.stringify(res)}\n\nMake sure Bot is Admin in the group!`);
+                    await sendMessage(chatId, `❌ <b>Failed!</b>\n\nTried sending to: <code>${chatIdStr}</code>\nBot Token: <code>${tokenStr}</code>\n\n<b>Create Error:</b>\n<pre>${JSON.stringify(res, null, 2)}</pre>`);
                 }
                 return NextResponse.json({ ok: true });
             }
