@@ -4,6 +4,8 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "@/components/providers";
 import { ChatWidget } from "@/components/ui/chat-widget";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron" });
@@ -28,6 +30,8 @@ export default function RootLayout({
       <body className={`${inter.variable} ${orbitron.variable} font-sans antialiased text-foreground bg-background overflow-x-hidden selection:bg-cyan-500/30`}>
         <Providers>
           {children}
+          <Analytics />
+          <SpeedInsights />
           <ChatWidget />
           <Toaster />
         </Providers>
