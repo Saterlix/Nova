@@ -9,8 +9,8 @@
         }
     },
     "hero": {
-        "headline": "Biznesingiz o'sishiga yordam beradigan IT infratuzilmasi",
-        "subheadline": "O'zbekiston bizneslari uchun kompleks autsorsing, modernizatsiya va SLA yordami.",
+        "headline": "Biznes o'sdi. IT unga yetisha olmadi.",
+        "subheadline": "Yangi ofislar, ko'proq xodimlar, yuqori yuklama — ammo infratuzilma «qanday bo'lsa shunday» yig'ilgan.\nNOVA IT'ni sizning miqyosingiz va maqsadlaringizga mos ravishda loyihalashtiradi: teshiklarni yamamaydi, balki o'sishga xalaqit bermaydigan tizimni quradi.",
         "getAudit": "Audit olish",
         "viewPlans": "Tariflarni ko'rish",
         "brand": "NOVA Outsourcing",
